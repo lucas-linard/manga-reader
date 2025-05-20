@@ -3,20 +3,6 @@ import { ThemeType } from "../../theme/dark";
 
 export const createStyles = (theme: ThemeType) =>
   StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: "center",
-      backgroundColor: theme.colors.background,
-      paddingHorizontal: theme.spacing.md,
-    },
-    listContainer: {
-      justifyContent: "space-around",
-      width: "100%",
-      marginBottom: 15,
-    },
-    lastItemContainer: {
-      width: "93%",
-    },
     searchInputContainer: {
       width: "100%",
       flexDirection: "row",

@@ -3,6 +3,7 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import { MangaCard } from "../../components/MangaCard";
 import { useSearchViewModel } from "./SearchViewModel";
@@ -10,9 +11,12 @@ import { createStyles } from "./styles";
 import { useSettingsStore } from "../../stores/useSettingsStore";
 import { useThemeStore } from "../../theme/useThemeStore";
 import { useRouter } from "expo-router";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Input } from "../../components/Input";
+import { useState } from "react";
 
 export function SearchView() {
-  const { mangaList } = useSearchViewModel();
+  const { FilterManga } = useSearchViewModel();
   const { theme } = useThemeStore();
   const styles = createStyles(theme);
 
@@ -22,6 +26,8 @@ export function SearchView() {
 
   const router = useRouter();
 
+  const [searchText, setSearchText] = useState("");
+
   function getMangaWidth(colNumber: number) {
     const screenWidth = Dimensions.get("window").width;
     const cardMargin = screenWidth * 0.08;
@@ -30,7 +36,14 @@ export function SearchView() {
 
   return (
     <View style={styles.container}>
-      
+      <Input 
+        icon={<Ionicons name="search" size={24} color={theme.colors.secondary} />}
+        onPress={() => FilterManga(searchText)}
+        placeholder="Search for manga"
+        value={searchText}
+        onChangeText={setSearchText}
+        placeholderTextColor={theme.colors.textDisabled}
+      />
     </View>
   );
 }

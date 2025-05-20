@@ -3,10 +3,9 @@ import { Manga } from "../../models/Manga";
 import { mangaListMock } from "./mock";
 import { useSettingsStore } from "../../stores/useSettingsStore";
 import { Dimensions } from "react-native";
-
+import { getMangaList } from "../../services/mangaService";
 export function useSearchViewModel() {
   const [mangaList, setMangaList] = useState<Manga[]>(mangaListMock);
-  
 
   // useEffect(() => {
   //     const fetchManga = async () => {
@@ -22,5 +21,15 @@ export function useSearchViewModel() {
   //     fetchManga();
   // }, []);
 
-  return { mangaList };
+  async function FilterManga(title: string) {
+    try {
+      const manga = await getMangaList({ title });
+      console.log("Manga", JSON.stringify(manga.data));
+      setMangaList(manga.data);
+    } catch (error) {
+      console.error("Error fetching manga:", error);
+    }
+  }
+
+  return { FilterManga, mangaList };
 }
